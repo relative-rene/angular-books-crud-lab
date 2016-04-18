@@ -1,7 +1,6 @@
 angular.module('libraryApp', ['ngRoute'])
-       .config(config)
-       .controller('BooksShowController', BooksShowController)
-       .controller('BooksIndexController', BooksIndexController);
+       .config(config);
+
 ////////////
 // ROUTES //
 ////////////
@@ -11,12 +10,12 @@ config.$inject = ['$routeProvider', '$locationProvider'];
 function config (  $routeProvider,   $locationProvider  )  {
   $routeProvider
     .when('/', {
-      templateUrl: "templates/index.html",/* Include the path to the index template */
+      templateUrl: "templates/books/index.html",/* Include the path to the index template */
       controller:  "BooksIndexController",/* Which controller do you want the main page to use */
-      controllerAs: "bookIndexCtrl"/* What will you call the controller in the html? */
+      controllerAs: "booksIndexCtrl"/* What will you call the controller in the html? */
     })
-    .when ('/show', {
-      templateUrl: "templastes/show.html",
+    .when ('/books/:id', {
+      templateUrl: "templates/books/show.html",
       controller: "BooksShowController",
       controllerAs: "booksShowCtrl"
     })
@@ -34,20 +33,14 @@ function config (  $routeProvider,   $locationProvider  )  {
 }
 
 BooksIndexController.$inject = ['$routeParams'];
-function BooksIndexController($routeParams) {
+var BooksIndexController = function ($routeParams) {
   var vm = this;
-  var bookId = $routeParams.bookId;
   $http({
     method: 'GET',
     url: 'baseUrl'+bookId,
   }).then(function successCallback (response) {
     console.log("response for all books", response);
-  }), function errorCallback(error) {
+  }), function errorCallbac(error) {
     console.log('There was an error getting the data', error);
-}
-}
-BooksShowController.$inject = ['$routeParams'];
-function BooksShowController($routeParams){
-  var vm = this;
-  var bookId = $routeParams.bookId;
-}
+  }
+};
