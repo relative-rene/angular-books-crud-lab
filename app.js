@@ -31,16 +31,3 @@ function config (  $routeProvider,   $locationProvider  )  {
       requireBase: false
     });
 }
-
-BooksIndexController.$inject = ['$routeParams'];
-var BooksIndexController = function ($routeParams) {
-  var vm = this;
-  $http({
-    method: 'GET',
-    url: 'baseUrl'+bookId,
-  }).then(function successCallback (response) {
-    console.log("response for all books", response);
-  }), function errorCallbac(error) {
-    console.log('There was an error getting the data', error);
-  }
-};

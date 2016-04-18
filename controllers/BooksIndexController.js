@@ -7,9 +7,10 @@ function BooksIndexController( $http ) {
   $http({
     url:"https://super-crud.herokuapp.com/books",
     method:'GET'
-  }).then(function callSuccess(response) {
-    response.data
+  }).then(function (response) {
+    vm.books = response.data.books;
     console.log(response.data);
   }).then(function callError(err) {
     console.log(err);
+  });
 }
